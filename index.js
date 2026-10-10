@@ -2,6 +2,7 @@ const imageInput = document.querySelector('#imgfile');
 const preview = document.querySelector('#preview');
 const paletteContainer = document.querySelector('#palette');
 const statusMessage = document.querySelector('#status');
+const colorThief = new colorThief();
 const paletteSize = 6;
 let currentImageUrl;
 let currentRequest = 0;
