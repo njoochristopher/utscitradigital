@@ -1,8 +1,7 @@
-const imageInput = document.querySelector('#imgfile');
+const imageInput = document.querySelector('#image-file');
 const preview = document.querySelector('#preview');
 const paletteContainer = document.querySelector('#palette');
 const statusMessage = document.querySelector('#status');
-const colorThief = new colorThief();
 const paletteSize = 6;
 let currentImageUrl;
 let currentRequest = 0;
@@ -21,34 +20,45 @@ async function analyzeSelectedImage() {
   const file = imageInput.files[0];
 
   if (!file) {
-    statusMessage.textContent = 'Pilih gambar untuk memulai.';
+    statusMessage.textContent = 'Choose an image to get started.';
     return;
   }
 
   if (!file.type.startsWith('image/')) {
-    statusMessage.textContent = 'File yang dipilih bukan gambar yang valid.';
+    statusMessage.textContent = 'The selected file is not a valid image.';
+    return;
+  }
+
+  if (!window.ColorThief?.getPalette) {
+    statusMessage.textContent = 'Color Thief could not be loaded. Check your internet connection and try again.';
+    console.error('Color Thief library is unavailable.');
     return;
   }
 
   const imageUrl = URL.createObjectURL(file);
   currentImageUrl = imageUrl;
   const image = new Image();
-  statusMessage.textContent = 'Sedang menganalisis gambar...';
+  statusMessage.textContent = 'Analyzing image...';
 
   image.onload = async () => {
     if (request !== currentRequest) return;
+
     preview.src = imageUrl;
     try {
-      const colors = await ColorThief.getPalette(image, { colorCount: paletteSize });
+      const colors = await window.ColorThief.getPalette(image, {
+        colorCount: paletteSize,
+      });
       if (request !== currentRequest) return;
+
       renderPalette(colors);
-      statusMessage.textContent = `Berhasil menemukan ${colors.length} warna dari gambar.`;
+      statusMessage.textContent = `Found ${colors.length} colors in the image.`;
     } catch (error) {
       if (request !== currentRequest) return;
       URL.revokeObjectURL(imageUrl);
       currentImageUrl = undefined;
-      statusMessage.textContent = 'Gambar tidak dapat dianalisis. Coba file gambar lain.';
-      console.error('Gagal membaca warna gambar:', error);
+      preview.removeAttribute('src');
+      statusMessage.textContent = 'Could not analyze this image. Try another image file.';
+      console.error('Failed to extract image palette:', error);
     }
   };
 
@@ -56,7 +66,7 @@ async function analyzeSelectedImage() {
     if (request !== currentRequest) return;
     URL.revokeObjectURL(imageUrl);
     currentImageUrl = undefined;
-    statusMessage.textContent = 'Gambar gagal dimuat. Pastikan file tidak rusak.';
+    statusMessage.textContent = 'Could not load the image. Make sure the file is not damaged.';
   };
 
   image.src = imageUrl;
@@ -71,20 +81,20 @@ function renderPalette(colors) {
     const swatch = document.createElement('div');
     swatch.className = 'color-swatch';
     swatch.style.backgroundColor = hex;
-    swatch.setAttribute('aria-label', `Sampel warna ${index + 1}: ${hex}`);
+    swatch.setAttribute('aria-label', `Color ${index + 1}: ${hex}`);
 
     const code = document.createElement('button');
     code.className = 'hex-code';
     code.type = 'button';
     code.textContent = hex;
-    code.title = 'Klik untuk menyalin kode HEX';
+    code.title = 'Click to copy HEX code';
     code.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(hex);
-        statusMessage.textContent = `Kode ${hex} disalin.`;
+        statusMessage.textContent = `Copied ${hex}.`;
       } catch (error) {
-        statusMessage.textContent = `Kode warna: ${hex}`;
-        console.error('Gagal menyalin kode warna:', error);
+        statusMessage.textContent = `HEX color: ${hex}`;
+        console.error('Failed to copy color code:', error);
       }
     });
 
