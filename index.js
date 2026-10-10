@@ -1,6 +1,9 @@
-const img = document.createElement('img');
-
-img.src = 'CorvetteZR1.jpg';
+var colorThief = new ColorThief();
+img.onload = function(){
+    var ct = new ColorThief;
+    var palette = ct.getPalette(img, 10, 6);
+}
+img.src = URLSearchParams(file);
 
 import { getColorSync, getPaletteSync, getSwatches } from 'colorthief';
 
