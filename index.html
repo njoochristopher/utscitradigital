@@ -23,8 +23,23 @@
         <div class="image-panel">
           <label class="file-label" for="image-file">Choose an image</label>
           <input id="image-file" type="file" accept="image/*" />
+          <form id="image-url-form" class="url-form">
+            <label class="file-label" for="image-url">Or enter an image URL</label>
+            <div class="url-controls">
+              <input
+                id="image-url"
+                name="image-url"
+                type="url"
+                inputmode="url"
+                placeholder="https://example.com/image.jpg"
+                autocomplete="url"
+                required
+              />
+              <button type="submit">Load URL</button>
+            </div>
+          </form>
           <p id="status" class="status" role="status" aria-live="polite">
-            Choose an image to get started.
+            Choose a local image or enter an image URL to get started.
           </p>
           <div class="preview-frame">
             <img id="preview" alt="Preview of the selected image" />
@@ -34,7 +49,7 @@
 
         <div class="palette-panel">
           <h2>Color palette</h2>
-          <p class="palette-hint">Select a HEX code to copy.</p>
+          <p class="palette-hint">Select a HEX code to copy it.</p>
           <div id="palette" class="palette" aria-label="Extracted color palette"></div>
         </div>
       </section>
