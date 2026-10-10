@@ -2,38 +2,40 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme color" content="#E0FFFF">
-    <title>Identify Color Palette </title>
-    <script src="index.js"></script>
-    <script src="https://unpkg.com/colorthief@3/dist/umd/color-thief.global.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f3ef" />
+    <title>Identify Color Palette</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/colorthief@3/dist/umd/color-thief.global.js" defer></script>
+    <script src="index.js" defer></script>
   </head>
-
   <body>
-    <main class= "page">
-      <header class= "intro">
-        <h1>christospeed's Menu</h1>
-        <p class="title">Mid-exam</p>
-        <p class="eyebrow">Color Palette Identify</p>
-        <p class="description"> To make an identify color palette on the draw choice with hex code color.</p>
+    <main class="page">
+      <header class="intro">
+        <p class="eyebrow">COLOR TOOL</p>
+        <h1>Identify an image color palette</h1>
+        <p class="description">
+          Choose an image to automatically find its dominant colors and HEX codes.
+        </p>
       </header>
 
-      <section class="workspace" aria-label="Analyze Image Color">
+      <section class="workspace" aria-label="Image color analysis">
         <div class="image-panel">
-          <form>
-          <label class="file-label" for="image-file">Choose the Image</label>
+          <label class="file-label" for="image-file">Choose an image</label>
           <input id="image-file" type="file" accept="image/*" />
-          <button id="buttonLoad" type="button" disabled>Load <button/>
-          <p id="status" class="status" role="status" aria-live="polite">Images are ready to choose from URL/path or a device.</p>
-        <div class="preview-frame">
-            <img id="preview" alt="Preview image selected" />
-            <span class="preview-placeholder">Your preview image will be appear here.</span>
+          <p id="status" class="status" role="status" aria-live="polite">
+            Choose an image to get started.
+          </p>
+          <div class="preview-frame">
+            <img id="preview" alt="Preview of the selected image" />
+            <span class="preview-placeholder">Your image preview will appear here.</span>
+          </div>
         </div>
-      
+
         <div class="palette-panel">
-          <h2>Color Palette</h2>
-          <p class="palette-hint">Select a HEX Code to copy.</p>
-          <div id="palette" class="palette" aria-label="Extracting Color Palette"></div>
+          <h2>Color palette</h2>
+          <p class="palette-hint">Select a HEX code to copy.</p>
+          <div id="palette" class="palette" aria-label="Extracted color palette"></div>
         </div>
       </section>
     </main>
