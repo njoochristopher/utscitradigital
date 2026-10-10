@@ -3,7 +3,7 @@ img.onload = function(){
     var ct = new ColorThief;
     var palette = ct.getPalette(img, 10, 6);
 }
-img.src = URLSearchParams(file);
+img.src = URLCreateObject(file);
 
 import { getColorSync, getPaletteSync, getSwatches } from 'colorthief';
 
@@ -21,3 +21,7 @@ palette.forEach(c => console.log(c.hex()));
 // Semantic swatches (Vibrant, Muted, DarkVibrant, etc.)
 const swatches = await getSwatches(img);
 swatches.Vibrant?.color.hex();
+
+function toHex(r,g,b){
+  return '#' + [r,g,b].map(x => x.toString(16).padStart(2,'0')).join('').toUpperCase();
+}
