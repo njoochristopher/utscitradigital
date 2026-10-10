@@ -26,20 +26,16 @@
           <button id="buttonLoad" type="button" disabled>Load <button/>
           <p id="status" class="status" role="status" aria-live="polite">Images are ready to choose from URL/path or a device.</p>
         <div class="preview-frame">
-            <img id="preview" alt="Preview image choose." />
-            <span class="preview-placeholder">A preview image will appear.</span>
-            <show>image</show>
-          </div>
-          </button>
+            <img id="preview" alt="Preview image selected" />
+            <span class="preview-placeholder">Your preview image will be appear here.</span>
+        </div>
       
-      <section class="palette">
         <div class="palette-panel">
           <h2>Color Palette</h2>
-          <p class="palette-hint">Click the code for copying the results of hex code color.</p>
-          <div id="palette" class="palette" aria-label="Analyze Color Results"></div>
+          <p class="palette-hint">Select a HEX Code to copy.</p>
+          <div id="palette" class="palette" aria-label="Extracting Color Palette"></div>
         </div>
       </section>
-      <canvas id="canvas" class="analysis-canvas" aria-hidden="true"></canvas>
     </main>
   </body>
 </html>
