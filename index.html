@@ -3,8 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f5f3ef" />
-    <title>Identify Image Color Palette</title>
+    <meta name="theme-color" content="#f6f8fc" />
+    <meta
+      name="description"
+      content="Extract a color palette and HEX codes from an image using Color Thief."
+    />
+    <title>Palette Studio — Image Color Extractor</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://unpkg.com/colorthief@3.5.0/dist/umd/color-thief.global.js" defer></script>
     <script src="index.js" defer></script>
@@ -12,11 +16,14 @@
   <body>
     <main class="page">
       <header class="intro">
-        <p class="eyebrow">COLOR TOOL</p>
-        <h1>Identify an image color palette</h1>
+        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span> PALETTE STUDIO</p>
+        <h1>Colors worth<br /><span>keeping.</span></h1>
         <p class="description">
-          Upload an image or enter its URL to extract 6–10 dominant colors
-          and their HEX codes with
+          Turn any image into a ready-to-use color palette. Upload a file or paste
+          an image URL, then choose 6–10 dominant colors.
+        </p>
+        <p class="powered-by">
+          Powered by
           <a
             href="https://github.com/lokesh/color-thief"
             target="_blank"
@@ -27,10 +34,17 @@
 
       <section class="workspace" aria-label="Image color analysis">
         <div class="image-panel">
-          <label class="file-label" for="image-file">Upload an image from your device</label>
+          <div class="section-heading">
+            <span class="step-number">01</span>
+            <div>
+              <h2>Choose an image</h2>
+              <p>Upload from your device or load from a URL.</p>
+            </div>
+          </div>
+          <label class="file-label" for="image-file">Image file</label>
           <input id="image-file" type="file" accept="image/*" />
           <form id="image-url-form" class="url-form">
-            <label class="file-label" for="image-url">Or enter an image URL</label>
+            <label class="file-label" for="image-url">Image URL</label>
             <div class="url-controls">
               <input
                 id="image-url"
@@ -42,33 +56,55 @@
                 aria-label="Image URL"
                 required
               />
-              <button type="submit">Load URL</button>
+              <button type="submit">Load image <span aria-hidden="true">→</span></button>
             </div>
-            <small>Remote images must allow cross-origin access (CORS) for color analysis.</small>
+            <small>Images from other websites must allow CORS to analyze their colors.</small>
           </form>
           <p id="status" class="status" role="status" aria-live="polite">
-            Choose an image or enter an image URL to get started.
+            Your image preview and extracted palette will appear here.
           </p>
-          <div class="preview-frame">
+          <div class="preview-frame" aria-live="polite">
             <img id="preview" alt="Preview of the selected image" />
-            <span class="preview-placeholder">Your image preview will appear here.</span>
+            <div class="preview-placeholder">
+              <span class="upload-icon" aria-hidden="true">↥</span>
+              <span>Your image preview will appear here</span>
+              <span class="placeholder-formats">JPG · PNG · WEBP · GIF</span>
+            </div>
           </div>
         </div>
 
         <div class="palette-panel">
-          <h2>Color palette</h2>
-          <label class="file-label" for="color-count">Number of colors</label>
-          <select id="color-count" class="color-count">
-            <option value="6" selected>6 colors</option>
-            <option value="7">7 colors</option>
-            <option value="8">8 colors</option>
-            <option value="9">9 colors</option>
-            <option value="10">10 colors</option>
-          </select>
-          <p class="palette-hint">Select a HEX code to copy it.</p>
+          <div class="palette-heading">
+            <div class="section-heading">
+              <span class="step-number">02</span>
+              <div>
+                <h2>Your palette</h2>
+                <p>Click any HEX code to copy it.</p>
+              </div>
+            </div>
+            <label class="count-control" for="color-count">
+              <span>Colors</span>
+              <select id="color-count" class="color-count">
+                <option value="6" selected>6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </label>
+          </div>
           <div id="palette" class="palette" aria-label="Identified color palette"></div>
+          <div class="palette-empty" aria-hidden="true">
+            <span class="empty-dots"><i></i><i></i><i></i><i></i><i></i></span>
+            <p>Your colors will show up here</p>
+            <small>Choose an image to get started</small>
+          </div>
         </div>
       </section>
+      <footer class="footer">
+        <span>Palette Studio</span>
+        <span>Made for curious eyes and colorful ideas.</span>
+      </footer>
     </main>
   </body>
 </html>
