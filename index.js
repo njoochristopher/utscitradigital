@@ -48,6 +48,8 @@ colorCountInput.addEventListener('change', () => {
 });
 
 function loadSelectedImage() {
+  if (!selectedImage) return;
+
   if (selectedImage.file) {
     const imageUrl = URL.createObjectURL(selectedImage.file);
     analyzeImage(imageUrl, { objectUrl: imageUrl });
@@ -85,9 +87,15 @@ function analyzeImage(source, { objectUrl, crossOrigin = false } = {}) {
     if (request !== currentRequest) return;
 
     preview.src = source;
+    const colorCount = Number(colorCountInput.value);
+    if (!Number.isInteger(colorCount) || colorCount < 6 || colorCount > 10) {
+      statusMessage.textContent = 'Choose between 6 and 10 colors.';
+      return;
+    }
+
     try {
       const colors = await window.ColorThief.getPalette(image, {
-        colorCount: Number(colorCountInput.value),
+        colorCount,
       });
       if (request !== currentRequest) return;
 
@@ -98,7 +106,7 @@ function analyzeImage(source, { objectUrl, crossOrigin = false } = {}) {
       }
 
       renderPalette(colors);
-      statusMessage.textContent = `Found ${colors.length} colors in the image.`;
+      statusMessage.textContent = `Found ${colors.length} ${colors.length === 1 ? 'color' : 'colors'} in the image.`;
     } catch (error) {
       if (request !== currentRequest) return;
       if (objectUrl) URL.revokeObjectURL(objectUrl);
@@ -115,7 +123,9 @@ function analyzeImage(source, { objectUrl, crossOrigin = false } = {}) {
     if (request !== currentRequest) return;
     if (objectUrl) URL.revokeObjectURL(objectUrl);
     currentImageUrl = undefined;
-    statusMessage.textContent = 'Could not load the image. Check the URL or make sure the file is a valid image.';
+    statusMessage.textContent = crossOrigin
+      ? 'Could not load this image URL. Check the link and make sure its host allows cross-origin access (CORS).'
+      : 'Could not load the image. Make sure the file is a valid image.';
   };
 
   if (crossOrigin) image.crossOrigin = 'anonymous';
