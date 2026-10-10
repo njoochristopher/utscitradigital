@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#f5f3ef" />
-    <title>christospeed's Menu</title>
+    <title>Identify Image Color Palette</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://unpkg.com/colorthief@3.5.0/dist/umd/color-thief.global.js" defer></script>
     <script src="index.js" defer></script>
@@ -15,8 +15,13 @@
         <p class="eyebrow">COLOR TOOL</p>
         <h1>Identify an image color palette</h1>
         <p class="description">
-          Upload an image or enter its URL to automatically identify up to six
-          dominant colors and their HEX codes.
+          Upload an image or enter its URL to extract 6–10 dominant colors
+          and their HEX codes with
+          <a
+            href="https://github.com/lokesh/color-thief"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Color Thief</a>.
         </p>
       </header>
 
@@ -39,6 +44,7 @@
               />
               <button type="submit">Load URL</button>
             </div>
+            <small>Remote images must allow cross-origin access (CORS) for color analysis.</small>
           </form>
           <p id="status" class="status" role="status" aria-live="polite">
             Choose an image or enter an image URL to get started.
@@ -51,6 +57,14 @@
 
         <div class="palette-panel">
           <h2>Color palette</h2>
+          <label class="file-label" for="color-count">Number of colors</label>
+          <select id="color-count" class="color-count">
+            <option value="6" selected>6 colors</option>
+            <option value="7">7 colors</option>
+            <option value="8">8 colors</option>
+            <option value="9">9 colors</option>
+            <option value="10">10 colors</option>
+          </select>
           <p class="palette-hint">Select a HEX code to copy it.</p>
           <div id="palette" class="palette" aria-label="Identified color palette"></div>
         </div>
