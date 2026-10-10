@@ -4,6 +4,7 @@ const imageUrlInput = document.querySelector('#image-url');
 const colorCountInput = document.querySelector('#color-count');
 const preview = document.querySelector('#preview');
 const paletteContainer = document.querySelector('#palette');
+const palettePanel = document.querySelector('#palette-panel');
 const statusMessage = document.querySelector('#status');
 let currentImageUrl;
 let currentRequest = 0;
@@ -81,7 +82,7 @@ function analyzeImage(source, { objectUrl, crossOrigin = false } = {}) {
 
   currentImageUrl = objectUrl;
   const image = new Image();
-  statusMessage.textContent = 'Analyzing image...';
+  statusMessage.textContent = 'Loading image and extracting its color palette...';
 
   image.onload = async () => {
     if (request !== currentRequest) return;
@@ -107,6 +108,7 @@ function analyzeImage(source, { objectUrl, crossOrigin = false } = {}) {
 
       renderPalette(colors);
       statusMessage.textContent = `Found ${colors.length} ${colors.length === 1 ? 'color' : 'colors'} in the image.`;
+      palettePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (error) {
       if (request !== currentRequest) return;
       if (objectUrl) URL.revokeObjectURL(objectUrl);
