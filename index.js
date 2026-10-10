@@ -1,4 +1,6 @@
 const imageInput = document.querySelector('#image-file');
+const imageUrlForm = document.querySelector('#image-url-form');
+const imageUrlInput = document.querySelector('#image-url');
 const preview = document.querySelector('#preview');
 const paletteContainer = document.querySelector('#palette');
 const statusMessage = document.querySelector('#status');
@@ -6,44 +8,66 @@ const paletteSize = 6;
 let currentImageUrl;
 let currentRequest = 0;
 
-imageInput.addEventListener('change', analyzeSelectedImage);
+imageInput.addEventListener('change', () => {
+  const file = imageInput.files[0];
+  if (!file) return;
+  if (!file.type.startsWith('image/')) {
+    resetAnalysis();
+    statusMessage.textContent = 'The selected file is not a valid image.';
+    return;
+  }
 
-async function analyzeSelectedImage() {
+  imageUrlInput.value = '';
+  const imageUrl = URL.createObjectURL(file);
+  analyzeImage(imageUrl, { objectUrl: imageUrl });
+});
+
+imageUrlForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  let parsedUrl;
+  try {
+    parsedUrl = new URL(imageUrlInput.value.trim());
+  } catch {
+    statusMessage.textContent = 'Enter a valid image URL.';
+    return;
+  }
+  if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
+    statusMessage.textContent = 'Image URLs must use HTTP or HTTPS.';
+    return;
+  }
+
+  imageInput.value = '';
+  analyzeImage(parsedUrl.href, { crossOrigin: true });
+});
+
+function resetAnalysis() {
   const request = ++currentRequest;
   if (currentImageUrl) {
     URL.revokeObjectURL(currentImageUrl);
     currentImageUrl = undefined;
   }
-
   paletteContainer.replaceChildren();
   preview.removeAttribute('src');
-  const file = imageInput.files[0];
+  return request;
+}
 
-  if (!file) {
-    statusMessage.textContent = 'Choose an image to get started.';
-    return;
-  }
-
-  if (!file.type.startsWith('image/')) {
-    statusMessage.textContent = 'The selected file is not a valid image.';
-    return;
-  }
-
+function analyzeImage(source, { objectUrl, crossOrigin = false } = {}) {
+  const request = resetAnalysis();
   if (!window.ColorThief?.getPalette) {
+    if (objectUrl) URL.revokeObjectURL(objectUrl);
     statusMessage.textContent = 'Color Thief could not be loaded. Check your internet connection and try again.';
     console.error('Color Thief library is unavailable.');
     return;
   }
 
-  const imageUrl = URL.createObjectURL(file);
-  currentImageUrl = imageUrl;
+  currentImageUrl = objectUrl;
   const image = new Image();
   statusMessage.textContent = 'Analyzing image...';
 
   image.onload = async () => {
     if (request !== currentRequest) return;
 
-    preview.src = imageUrl;
+    preview.src = source;
     try {
       const colors = await window.ColorThief.getPalette(image, {
         colorCount: paletteSize,
@@ -54,22 +78,25 @@ async function analyzeSelectedImage() {
       statusMessage.textContent = `Found ${colors.length} colors in the image.`;
     } catch (error) {
       if (request !== currentRequest) return;
-      URL.revokeObjectURL(imageUrl);
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
       currentImageUrl = undefined;
       preview.removeAttribute('src');
-      statusMessage.textContent = 'Could not analyze this image. Try another image file.';
+      statusMessage.textContent = crossOrigin
+        ? 'Could not read colors from this URL. The image host may block cross-origin access (CORS). Try another image URL.'
+        : 'Could not analyze this image. Try another image file.';
       console.error('Failed to extract image palette:', error);
     }
   };
 
   image.onerror = () => {
     if (request !== currentRequest) return;
-    URL.revokeObjectURL(imageUrl);
+    if (objectUrl) URL.revokeObjectURL(objectUrl);
     currentImageUrl = undefined;
-    statusMessage.textContent = 'Could not load the image. Make sure the file is not damaged.';
+    statusMessage.textContent = 'Could not load the image. Check the URL or make sure the file is a valid image.';
   };
 
-  image.src = imageUrl;
+  if (crossOrigin) image.crossOrigin = 'anonymous';
+  image.src = source;
 }
 
 function renderPalette(colors) {
