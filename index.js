@@ -1,25 +1,27 @@
 const imageInput = document.querySelector('#image-file');
 const imageUrlForm = document.querySelector('#image-url-form');
 const imageUrlInput = document.querySelector('#image-url');
+const colorCountInput = document.querySelector('#color-count');
 const preview = document.querySelector('#preview');
 const paletteContainer = document.querySelector('#palette');
 const statusMessage = document.querySelector('#status');
-const paletteSize = 6;
 let currentImageUrl;
 let currentRequest = 0;
+let selectedImage;
 
 imageInput.addEventListener('change', () => {
   const file = imageInput.files[0];
   if (!file) return;
   if (!file.type.startsWith('image/')) {
+    selectedImage = undefined;
     resetAnalysis();
     statusMessage.textContent = 'The selected file is not a valid image.';
     return;
   }
 
   imageUrlInput.value = '';
-  const imageUrl = URL.createObjectURL(file);
-  analyzeImage(imageUrl, { objectUrl: imageUrl });
+  selectedImage = { file };
+  loadSelectedImage();
 });
 
 imageUrlForm.addEventListener('submit', (event) => {
@@ -37,8 +39,23 @@ imageUrlForm.addEventListener('submit', (event) => {
   }
 
   imageInput.value = '';
-  analyzeImage(parsedUrl.href, { crossOrigin: true });
+  selectedImage = { url: parsedUrl.href };
+  loadSelectedImage();
 });
+
+colorCountInput.addEventListener('change', () => {
+  if (selectedImage) loadSelectedImage();
+});
+
+function loadSelectedImage() {
+  if (selectedImage.file) {
+    const imageUrl = URL.createObjectURL(selectedImage.file);
+    analyzeImage(imageUrl, { objectUrl: imageUrl });
+    return;
+  }
+
+  analyzeImage(selectedImage.url, { crossOrigin: true });
+}
 
 function resetAnalysis() {
   const request = ++currentRequest;
@@ -70,7 +87,7 @@ function analyzeImage(source, { objectUrl, crossOrigin = false } = {}) {
     preview.src = source;
     try {
       const colors = await window.ColorThief.getPalette(image, {
-        colorCount: paletteSize,
+        colorCount: Number(colorCountInput.value),
       });
       if (request !== currentRequest) return;
 
