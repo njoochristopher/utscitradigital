@@ -74,6 +74,12 @@ function analyzeImage(source, { objectUrl, crossOrigin = false } = {}) {
       });
       if (request !== currentRequest) return;
 
+      if (!Array.isArray(colors) || colors.length === 0) {
+        paletteContainer.replaceChildren();
+        statusMessage.textContent = 'No colors could be identified in this image.';
+        return;
+      }
+
       renderPalette(colors);
       statusMessage.textContent = `Found ${colors.length} colors in the image.`;
     } catch (error) {
