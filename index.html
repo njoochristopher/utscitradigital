@@ -33,17 +33,18 @@
       <section class="workspace" aria-label="Image Analyst">
         <div class="image-panel">
           <label class="file-label" for="image-file">Choose the Image</label>
-          <input id="image-file" type="file" accept="image*" />
+          <input id="image-file" type="file" accept="image/*" />
           <button id="buttonLoad" type="button" disabled>Load</button>
           <p id="status" class="status" role="status" aria-live="polite">
             Choose the image to start.</p>
+        </div>
           </form>
           <div class="preview-frame">
             <img id="preview" alt="Preview image choose." />
             <span class="preview-placeholder">A preview image will appear.</span>
             <show>image</show>
           </div>
-        </div>
+        </section>
 
         <div class="palette-panel">
           <h2>Color Palette</h2>
