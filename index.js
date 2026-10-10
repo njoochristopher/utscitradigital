@@ -137,17 +137,19 @@ function renderPalette(colors) {
     const hex = color.hex().toUpperCase();
     const card = document.createElement('article');
     card.className = 'color-card';
+    card.setAttribute('role', 'listitem');
 
     const swatch = document.createElement('div');
     swatch.className = 'color-swatch';
     swatch.style.backgroundColor = hex;
-    swatch.setAttribute('aria-label', `Color ${index + 1}: ${hex}`);
+    swatch.setAttribute('aria-label', `Color swatch ${index + 1}: ${hex}`);
 
     const code = document.createElement('button');
     code.className = 'hex-code';
     code.type = 'button';
     code.textContent = hex;
-    code.title = 'Click to copy HEX code';
+    code.title = 'Copy HEX code';
+    code.setAttribute('aria-label', `Copy HEX color ${hex}`);
     code.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(hex);
