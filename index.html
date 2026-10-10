@@ -8,7 +8,7 @@
       name="description"
       content="Extract a color palette and HEX codes from an image using Color Thief."
     />
-    <title>christospeed's Menu</title>
+    <title>Palette Studio — Image Color Extractor</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://unpkg.com/colorthief@3.5.0/dist/umd/color-thief.global.js" defer></script>
     <script src="index.js" defer></script>
@@ -19,8 +19,8 @@
         <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span> PALETTE STUDIO</p>
         <h1>Colors worth<br /><span>keeping.</span></h1>
         <p class="description">
-          Turn any image into a ready-to-use color palette. Upload a file or paste
-          an image URL, then choose 6–10 dominant colors.
+          Load an image from your device or a direct URL. Color Thief extracts
+          6–10 dominant colors and displays each swatch with a copyable HEX code.
         </p>
         <p class="powered-by">
           Powered by
@@ -94,7 +94,14 @@
               </select>
             </label>
           </div>
-          <div id="palette" class="palette" aria-label="Identified color palette"></div>
+          <div
+            id="palette"
+            class="palette"
+            role="list"
+            aria-label="Extracted colors and HEX codes"
+            aria-live="polite"
+            aria-relevant="additions removals"
+          ></div>
           <div class="palette-empty">
             <span class="empty-dots"><i></i><i></i><i></i><i></i><i></i></span>
             <p>Your colors will show up here</p>
