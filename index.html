@@ -6,7 +6,18 @@
     <meta name="theme color" content="#E0FFFF">
     <title>Identify Color Palette </title>
     <script src="index.js"></script>
-    <script src="color-thief.min.js"></script>
+    <script src="https://unpkg.com/colorthief@3/dist/umd/color-thief.global.js"></script>
+<script type="module">
+    const color = ColorThief.getColorSync(img);
+    console.log(color.hex());
+    import { getColorSync } from 'https://unpkg.com/colorthief@3/dist/index.js';
+
+    const img = document.querySelector('img');
+    img.addEventListener('load', () => {
+        const color = getColorSync(img);
+        console.log(color.hex());
+    });
+</script>
   </head>
 
   <body>
