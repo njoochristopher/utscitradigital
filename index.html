@@ -8,7 +8,7 @@
       name="description"
       content="Extract a color palette and HEX codes from an image using Color Thief."
     />
-    <title>Palette Studio — Image Color Extractor</title>
+    <title>Color Palette Menu</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://unpkg.com/colorthief@3.5.0/dist/umd/color-thief.global.js" defer></script>
     <script src="index.js" defer></script>
@@ -16,7 +16,7 @@
   <body>
     <main class="page">
       <header class="intro">
-        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span> PALETTE STUDIO</p>
+        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Color Palette Menu.</p>
         <h1>Colors worth<br /><span>keeping.</span></h1>
         <p class="description">
           Load an image from your device or a direct URL. Color Thief extracts
@@ -62,7 +62,7 @@
             <small id="url-help">Images hosted on other websites must allow CORS for color analysis.</small>
           </form>
           <p id="status" class="status" role="status" aria-live="polite">
-            Your image preview and extracted palette will appear here.
+            Your image preview and extracted palette will appear.
           </p>
           <div class="preview-frame" aria-live="polite">
             <img id="preview" alt="Preview of the selected image" />
@@ -80,7 +80,7 @@
               <span class="step-number">02</span>
               <div>
                 <h2>Your palette</h2>
-                <p>Click any HEX code to copy it.</p>
+                <p>Click any HEX code.</p>
               </div>
             </div>
             <label class="count-control" for="color-count">
@@ -110,8 +110,7 @@
         </div>
       </section>
       <footer class="footer">
-        <span>Palette Studio</span>
-        <span>Made for curious eyes and colorful ideas.</span>
+        <span>Identifying Color Palette and HEX Color on the Image.</span>
       </footer>
     </main>
   </body>
