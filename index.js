@@ -63,13 +63,30 @@ function loadSelectedImage() {
 
 function toDirectImageUrl(url) {
   const segments = url.pathname.split('/').filter(Boolean);
-  if (url.hostname === 'github.com' && segments.length >= 5 && segments[2] === 'blob') {
-    const [owner, repository, , branch, ...filePath] = segments;
+  if (
+    ['github.com', 'www.github.com'].includes(url.hostname) &&
+    segments.length >= 5 &&
+    ['blob', 'raw'].includes(segments[2])
+  ) {
+    const [owner, repository, , ...imagePath] = segments;
+    if (imagePath[0] === 'refs' && ['heads', 'tags'].includes(imagePath[1])) {
+      imagePath.splice(0, 2);
+    }
+
+    const [revision, ...filePath] = imagePath;
+    if (!revision || filePath.length === 0) return url;
+
     const rawUrl = new URL(
-      `https://raw.githubusercontent.com/${owner}/${repository}/${branch}/${filePath.join('/')}`,
+      `https://raw.githubusercontent.com/${owner}/${repository}/${revision}/${filePath.join('/')}`,
     );
-    rawUrl.search = url.searchParams.has('raw') ? '' : url.search;
+    const query = new URLSearchParams(url.searchParams);
+    query.delete('raw');
+    rawUrl.search = query.toString();
     return rawUrl;
+  }
+
+  if (url.hostname === 'raw.github.com') {
+    url.hostname = 'raw.githubusercontent.com';
   }
 
   return url;
