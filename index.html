@@ -8,7 +8,7 @@
       name="description"
       content="Extract a color palette and HEX codes from an image using Color Thief."
     />
-    <title>Color Palette Menu</title>
+    <title>Color Studio.com</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://unpkg.com/colorthief@3.5.0/dist/umd/color-thief.global.js" defer></script>
     <script src="index.js" defer></script>
@@ -16,8 +16,8 @@
   <body>
     <main class="page">
       <header class="intro">
-        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span>Color Palette Menu</p>
-        <h1>Images to search palatte and HEX color.</span></h1>
+        <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span> PALETTE STUDIO</p>
+        <h1>Images to search color palette and HEX code.</h1>
         <p class="description">
           Load an image from your device or a direct URL. Color Thief extracts
           6–10 dominant colors and displays each swatch with a copyable HEX code.
@@ -59,10 +59,13 @@
               />
               <button type="submit">Load image <span aria-hidden="true">→</span></button>
             </div>
-            <small id="url-help">Images hosted on other websites must allow CORS for color analysis.</small>
+            <small id="url-help">
+              Use a direct image link. GitHub file links are converted to raw image URLs.
+              Other hosts must allow CORS for color analysis.
+            </small>
           </form>
           <p id="status" class="status" role="status" aria-live="polite">
-            Your image preview will appear.
+            Your image preview and extracted palette will appear here.
           </p>
           <div class="preview-frame" aria-live="polite">
             <img id="preview" alt="Preview of the selected image" />
@@ -74,7 +77,7 @@
           </div>
         </div>
 
-        <div class="palette-panel">
+        <div id="palette-panel" class="palette-panel" aria-label="Extracted color palette results">
           <div class="palette-heading">
             <div class="section-heading">
               <span class="step-number">02</span>
@@ -110,7 +113,7 @@
         </div>
       </section>
       <footer class="footer">
-        <span>Identifying Color Palette and HEX Color on the Image.</span>
+        <span>Identify color palatte and HEX code.</span>
       </footer>
     </main>
   </body>
