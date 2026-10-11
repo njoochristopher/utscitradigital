@@ -12,8 +12,14 @@
   box-sizing: border-box;
 }
 
-.image-panel,
-palette-panel {
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 0.90fr) minmax(0, 1.00fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.image-panel, palette-panel {
   man-width: 0;
   padding:30px;
   scroll-margin-top: 25px;
@@ -28,6 +34,20 @@ palette-panel {
   gap: 15px;
   align-items: flex-start;
   margin-bottom: 20px;
+}
+
+.step-number {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #e2e6fb;
+  border-radius: 12px;
+  background: #f1f3ff;
+  color: #5764d9;
+  font-size: 0.72rem;
+  font-weight: 800;
 }
 
 .file-label {
