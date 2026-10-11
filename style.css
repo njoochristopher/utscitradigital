@@ -1,17 +1,11 @@
 :root {
   color-scheme: light;
   font-family: Franklin Gothic Medium, sans-serif;
-
-  --palette1;
-  --palette2;
-  --palette3;
-  --palette4;
-  --palette5;
-  --palette6;
-  --palette7;
-  --palette8;
-  --palette9;
-  --palette10;
+  color: #182238;
+  background: #f6f8fc;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  font-optical-sizing: auto;
 }
 
 * {
