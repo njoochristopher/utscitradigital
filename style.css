@@ -13,3 +13,7 @@
   --palette9;
   --palette10;
 }
+
+* {
+  box-sizing: border-box;
+}
