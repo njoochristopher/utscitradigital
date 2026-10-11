@@ -224,7 +224,34 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .hex-code:hover {
-  background: #h3h5h8;
+  background: #f3f5f6;
+}
+
+.palette-empty {
+  display: none;
+  min-height: 265px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #e0e5ef;
+  border-radius: 14px;
+  background: #fafbfe;
+  color: #8692a8;
+  text-align: center;
+}
+
+.palette:not(:empty) + .palette-empty {
+  display: none;
+}
+
+.palette:empty + .palette-empty {
+  display: flex;
+}
+
+.empty-dots {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 15px;
 }
 
 .image-panel,
