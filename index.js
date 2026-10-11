@@ -134,9 +134,20 @@ function analyzeImage(source, { objectUrl, crossOrigin = false } = {}) {
   image.src = source;
 }
 
+function rgbtoHex(color) {
+  const [r, g, b] = Array.isArray(color) ? color : [color.r, color.g, color.b];
+  return `#${[r, g, b]
+    .map((channel) => {
+      const value = Number(channel);
+      return value.toString(16).padStart(2, '0');
+    })
+    .join('')
+    .toUpperCase()}`;
+}
+
 function renderPalette(colors) {
   const swatches = colors.map((color, index) => {
-    const hex = color.hex().toUpperCase();
+    const hex = rgbtoHex(color);
     const card = document.createElement('article');
     card.className = 'color-card';
     card.setAttribute('role', 'listitem');
