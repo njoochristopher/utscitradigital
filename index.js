@@ -61,7 +61,8 @@ function loadSelectedImage() {
   analyzeImage(selectedImage.url, { crossOrigin: true });
 }
 
-function toUploadImageUrl() {
+function toDirectImageUrl(url) {
+  const segments = url.pathname.split('/').filter(Boolean);
   if (url.hostname === 'github.com' && segments.length >= 5 && segments[2] === 'blob') {
     const [owner, repository, , branch, ...filePath] = segments;
     const rawUrl = new URL(
@@ -129,7 +130,7 @@ function analyzeImage(source, { objectUrl, crossOrigin = false } = {}) {
       currentImageUrl = undefined;
       preview.removeAttribute('src');
       statusMessage.textContent = crossOrigin
-        ? 'Could not read colors from this URL. The image host may block cross-origin access (CORS). Try another from image URL.'
+        ? 'Could not read colors from this URL. The image host may block cross-origin access (CORS). Try another image URL.'
         : 'Could not analyze this image. Try another image file.';
       console.error('Failed to extract image palette:', error);
     }
@@ -148,21 +149,21 @@ function analyzeImage(source, { objectUrl, crossOrigin = false } = {}) {
   image.src = source;
 }
 
-function rgbtoHex(color) {
-  if (typeof color.hex === 'function' ) {
-    return color.hex.toUppercase();
+function rgbToHex(color) {
+  if (typeof color.hex === 'function') {
+    return color.hex().toUpperCase();
   }
-  
+
   const [r, g, b] = Array.isArray(color) ? color : [color.r, color.g, color.b];
   return `#${[r, g, b]
-    .map((channel) => Math.round(Number(channel);return value.toString(16).padStart(2, '0'))
+    .map((channel) => Math.round(Number(channel)).toString(16).padStart(2, '0'))
     .join('')
     .toUpperCase()}`;
 }
 
 function renderPalette(colors) {
   const swatches = colors.map((color, index) => {
-    const hex = rgbtoHex(color);
+    const hex = rgbToHex(color);
     const card = document.createElement('article');
     card.className = 'color-card';
     card.setAttribute('role', 'listitem');
