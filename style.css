@@ -174,3 +174,20 @@ input[type="file"]::file-selector-button:hover {
   font-size: 0.85rem;
   text-align: center;
 }
+
+.color-count {
+  min-width: 58px;
+  height: 36px;
+  padding: 0 9px;
+  border: 1px solid #dfe4ef;
+  border-radius: 9px;
+  background: #fff;
+  color: #26334d;
+  font-weight: 700;
+}
+
+.palette {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
