@@ -17,7 +17,7 @@ body {
   min-height: 100vh;
   margin: 0;
   background:
-    radial-gradient(ellipse at 10% 0%, rgb(224 233 255 / 72%), transparent 34rem),
+    radial-gradient(ellipse at 10% 0%, rgb(210 238 180 / 75%), transparent 45rem),
     #f6f8fc;
 }
 
@@ -28,9 +28,9 @@ select {
 }
 
 .page {
-  width: min(100% - 48px, 1160px);
+  width: min(100% - 85px, 1160px);
   margin: 0 auto;
-  padding: 58px 0 26px;
+  padding: 60px 0 26px;
 }
 
 .intro {
@@ -55,7 +55,7 @@ select {
   height: 9px;
   border-radius: 50%;
   background: #626eea;
-  box-shadow: 0 0 0 4px rgb(98 110 234 / 12%);
+  box-shadow: 0 0 0 4px rgb(50 100 150 / 20%);
 }
 
 h1,
@@ -100,18 +100,18 @@ h1 span {
 .workspace {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-  gap: 22px;
+  gap: 20px;
   align-items: stretch;
 }
 
 .image-panel,
 .palette-panel {
   min-width: 0;
-  padding: 28px;
+  padding: 30px;
   scroll-margin-top: 20px;
   border: 1px solid #e5e9f2;
   border-radius: 20px;
-  background: rgb(255 255 255 / 92%);
+  background: rgb(235 235 255 / 100%);
   box-shadow: 0 18px 55px rgb(35 50 85 / 7%);
 }
 
