@@ -135,12 +135,13 @@ function analyzeImage(source, { objectUrl, crossOrigin = false } = {}) {
 }
 
 function rgbtoHex(color) {
+  if (typeof color.hex === 'function' ) {
+    return color.hex.toUppercase();
+  }
+  
   const [r, g, b] = Array.isArray(color) ? color : [color.r, color.g, color.b];
   return `#${[r, g, b]
-    .map((channel) => {
-      const value = Number(channel);
-      return value.toString(16).padStart(2, '0');
-    })
+    .map((channel) => Math.round(Number(channel);return value.toString(16).padStart(2, '0'))
     .join('')
     .toUpperCase()}`;
 }
