@@ -115,7 +115,7 @@ function analyzeImage(source, { objectUrl, crossOrigin = false } = {}) {
       currentImageUrl = undefined;
       preview.removeAttribute('src');
       statusMessage.textContent = crossOrigin
-        ? 'Could not read colors from this URL. The image host may block cross-origin access (CORS). Try another image URL.'
+        ? 'Could not read colors from this URL. The image host may block cross-origin access (CORS). Try another from image URL.'
         : 'Could not analyze this image. Try another image file.';
       console.error('Failed to extract image palette:', error);
     }
