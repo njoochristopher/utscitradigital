@@ -187,15 +187,44 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .color-code {
-  
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e6eaf2;
+  border-radius: 12px;
+  background: #fff;
+  animation: card-appear 240ms ease both;
+}
+
+  .color-card:nth-child(2) { animation-delay: 20ms }
+  .color-card:nth-child(3) { animation-delay: 30ms }
+  .color-card:nth-child(4) { animation-delay: 40ms }
+  .color-card:nth-child(5) { animation-delay: 50ms }
+  .color-card:nth-child(6) { animation-delay: 60ms }
+  .color-card:nth-child(7) { animation-delay: 70ms }
+  .color-card:nth-child(8) { animation-delay: 80ms }
+  .color-card:nth-child(9) { animation-delay: 90ms }
+  .color-card:nth-child(10) { animation-delay: 100ms }
+}
+
+.color-swatch {
+  min-height: 75px;
 }
 
 .hex-code {
-
+  width: 100%;
+  padding: 10px 5px;
+  border: 0;
+  background: #fff;
+  color: #35425a;
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.045em;
+  cursor: pointer;
+  transition: background 140ms ease;
 }
 
 .hex-code:hover {
-
+  background: #h3h5h8;
 }
 
 .image-panel,
