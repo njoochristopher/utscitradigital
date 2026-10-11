@@ -155,7 +155,7 @@ input[type="file"]::file-selector-button:hover {
 }
 
 #preview[src] + .preview-placeholder {
-  display: none;
+  display: block;
 }
 
 .preview-placeholder {
@@ -167,6 +167,24 @@ input[type="file"]::file-selector-button:hover {
   color: #8190a8;
   font-size: 0.85rem;
   text-align: center;
+}
+
+.placeholder-formats {
+  color: #a0aabd;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}
+
+.palette-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.palette-heading .section-heading {
+  margin-bottom: 19px;
 }
 
 .color-count {
