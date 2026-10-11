@@ -39,8 +39,9 @@ imageUrlForm.addEventListener('submit', (event) => {
     return;
   }
 
+  const imageUrl = toDirectImageUrl(parsedUrl);
   imageInput.value = '';
-  selectedImage = { url: parsedUrl.href };
+  selectedImage = { url: imageUrl.href };
   loadSelectedImage();
 });
 
@@ -58,6 +59,19 @@ function loadSelectedImage() {
   }
 
   analyzeImage(selectedImage.url, { crossOrigin: true });
+}
+
+function toUploadImageUrl() {
+  if (url.hostname === 'github.com' && segments.length >= 5 && segments[2] === 'blob') {
+    const [owner, repository, , branch, ...filePath] = segments;
+    const rawUrl = new URL(
+      `https://raw.githubusercontent.com/${owner}/${repository}/${branch}/${filePath.join('/')}`,
+    );
+    rawUrl.search = url.searchParams.has('raw') ? '' : url.search;
+    return rawUrl;
+  }
+
+  return url;
 }
 
 function resetAnalysis() {
