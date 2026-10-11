@@ -185,3 +185,33 @@ input[type="file"]::file-selector-button:hover {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
+
+.color-code {
+  
+}
+
+.hex-code {
+
+}
+
+.hex-code:hover {
+
+}
+
+.image-panel,
+  .palette-panel {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .url-controls {
+    flex-direction: column;
+  }
+
+  .url-controls button {
+    width: 100%;
+  }
+
+  .palette {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
