@@ -268,6 +268,50 @@ input[type="file"]::file-selector-button:hover {
   margin-bottom: 15px;
 }
 
+.empty-dots {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.empty-dots i {
+  width: 18px;
+  height: 18px;
+  border-radius: 7px;
+  background: #e9ecf6;
+}
+
+.empty-dots i:nth-child(2) { background: #dfe4f5; }
+.empty-dots i:nth-child(3) { background: #d7dcf2; }
+.empty-dots i:nth-child(4) { background: #cbd2ee; }
+.empty-dots i:nth-child(5) { background: #bec7eb; }
+
+.palette-empty p {
+  margin: 0 0 5px;
+  color: #56647c;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.palette-empty small {
+  color: #9aa5b7;
+  font-size: 0.75rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 20px 2px 0;
+  color: #929db0;
+  font-size: 0.74rem;
+}
+
+.footer span:first-child {
+  color: #64718a;
+  font-weight: 600;
+}
+
 @media (max-width: 820px) {
   .page {
     width: min(100% - 36px, 650px);
